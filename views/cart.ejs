@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+      <script src="https://kit.fontawesome.com/515b06e286.js" crossorigin="anonymous"></script>
+    <style>
+        .card{
+             display: flex;
+            flex-direction: column;
+            width: -webkit-fill-available;
+            height: 145px;
+            background-color: white;
+            border: 1px solid black;
+            margin-bottom: 10px;
+            margin-left: 10px;
+            align-items: center;
+            justify-content: center;
+            color: black;
+        }
+        .bill
+        {
+           
+            width: -webkit-fill-available;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid black;
+
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align:center;">My Cart</h1>
+    <div style="margin-left: 10px;margin-bottom: 15px;">
+        <button><a href="/buyeritems/<%=token%>">Back</a></button>
+    </div>
+   
+    
+   <%if(!cart || cart.bill===0){%>
+    <h2>Cart is Empty</h2>
+     <%}else{%>
+    
+    <%for(let i=0;i<cart.items.length;i++){%>
+   <div class="card">
+    <div>
+    Product Name:<%=cart.items[i].name%>
+    </div>
+    <div>
+    Quantity:<%=cart.items[i].quantity%>
+    </div>
+    <div>
+    Price:<%=cart.items[i].price%>
+    </div>
+    </div>
+    <%}%>
+    <div class="bill">
+        Total Bill: <span><%=cart.bill%></span>
+    </div>
+    <form action="/order/<%=token%>" method="post">
+        <div style="display: flex;margin-top: 10px;justify-content: flex-end;">
+        <button>Checkout <i class="fa-sharp fa-solid fa-right-to-bracket"></i></button>
+        </div>
+    </form>
+    <%}%>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <script src="https://kit.fontawesome.com/515b06e286.js" crossorigin="anonymous"></script>
+    <style>
+        *{
+            background-color: #DDDDDD;
+        }
+        .card
+        {
+            display: flex;
+            flex-direction: column;
+            width: -webkit-fill-available;
+            height: 100px;
+            background-color: white;
+            border: 2px solid black;
+            margin-bottom: 10px;
+            margin-left: 10px;
+            align-items: center;
+            justify-content: center;
+            color: black;
+            background-color: #DDDDDD;
+            
+        
+ 
+
+        }
+       *{
+        text-decoration: none;
+       }
+    </style>
+</head>
+<body>
+       <h1 style="text-align:center ;">Sellers Page</h1>
+    <div style="display:flex;align-items: center;justify-content: space-between;">
+    <h3 style="margin-left: 10px;">
+        Hi, <%=user.name%>
+    </h3>
+
+    <div>
+        <button><a href="/itemspost/<%=token%>">Post an item <i class="fa-solid fa-plus"></i></a></button>
+    </div>
+     <div>
+      
+        <button><a href="/users/logout/<%=token%>">Logout <i class="fa-solid fa-right-from-bracket"></i></a> </button>
+      
+    </div>
+    </div>
+
+    <div style="margin:8px;">
+    <b>My Items</b>
+    </div>
+
+    <div class="flex">
+    
+    <%for(var i=0;i<items.length;i++){%>
+    
+        <%if(user._id.toString()==items[i].owner.toString()){%>
+        <div class="card">
+            <div>
+              Product Name:<%=items[i].name%>
+                </div>
+          
+            <div>
+                Category: <%=items[i].category%>
+            </div>
+            <div>
+                Price: <%=items[i].price%>
+            </div>
+            <div>
+                Description: <%=items[i].description%>
+            </div>
+            <div style="display: flex;justify-content:space-evenly;">
+                <form action="/deleteitems/<%=token%>&<%=items[i]._id%>" method="post">
+               <input type="submit" value="Delete item">
+                </form>
+                <form action="/updateitems/<%=token%>&<%=items[i]._id%>" method="get">
+                    <input type="submit" value="Update Item">
+                </form>
+                </form>
+            </div>
+       </div>
+        <%}%>
+          <%}%>
+        </div>
+
+        <div style="margin:8px;">
+           <b>Other's Items</b> 
+        </div>
+        <div class="flex">
+    
+    <%for(var i=0;i<items.length;i++){%>
+    
+        <%if(user._id.toString()!=items[i].owner.toString()){%>
+        <div class="card">
+            <div>
+             Product Name:<%=items[i].name%>
+                </div>
+          
+            <div>
+                Category:<%=items[i].category%>
+            </div>
+            <div>
+                Price: <%=items[i].price%>
+            </div>
+            <div>
+                Description: <%=items[i].description%>
+            </div>
+       </div>
+        <%}%>
+          <%}%>
+        </div>
+         <div style="margin-left: 10px;">
+        <button><a href="/home/<%=token%>">Back to Home <i class="fa-sharp fa-solid fa-house-user"></i></a></button>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .card {
+            display: flex;
+            flex-direction: column;
+            width: -webkit-fill-available;
+            height: 145px;
+            background-color: white;
+            border: 1px solid black;
+            margin-bottom: 10px;
+            margin-left: 10px;
+            align-items: center;
+            justify-content: center;
+            color: black;
+        }
+        .partition
+        {
+            display: flex;
+            flex-direction: row;
+        }
+        .margin{
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align:center;">My orders</h1>
+<%let state=1%>
+   <%for(let i=0;i<orders.length;i++){%>
+    
+    <%if(id.toString()==orders[i].owner.toString()){%>
+        <div class="card">
+           <b>Order <%=state%></b> 
+         <div>
+             <%for(let j=0;j<orders[i].items.length;j++){%>
+                <div class="partition">
+                <div class="margin">
+                Product Name:<%=orders[i].items[j].name%>
+                </div>
+                 <div class="margin">
+                Quantity:<%=orders[i].items[j].quantity%>
+                </div>
+                 <div class="margin">
+                Price:<%=orders[i].items[j].price%>
+                </div>
+                </div>
+                 <%}%>
+                 Total Bill:<%=orders[i].bill%>
+         </div>
+        </div>
+         <%state+=1%>
+    <%}%>
+   
+     <%}%>
+
+     <button><a href="/cart/<%=token%>">Back to Cart</a></button>
+</body>
+</html>

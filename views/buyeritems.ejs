@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/515b06e286.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fontawesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        *{
+        text-decoration: none;
+          background-color: #DDDDDD;
+       }
+        .card {
+            display: flex;
+            flex-direction: column;
+            width: -webkit-fill-available;
+            height: 145px;
+            background-color: white;
+            border: 1px solid black;
+            margin-bottom: 10px;
+            margin-left: 10px;
+            align-items: center;
+            justify-content: center;
+            color: black;
+              background-color: #DDDDDD;
+        }
+        .footer{
+           text-align: center;
+        }
+        .footer a{
+            color: black;
+
+        }
+        .footer button{
+            margin-top: 40px;
+            width:90vw;
+            height: 50px;
+            font-size: 20px;
+            
+        }
+
+
+
+        
+    </style>
+</head>
+
+<body>
+     <h1 style="text-align:center;">Buyers Page</h1>
+    <div style="display:flex;align-items: center;justify-content: space-between;">
+        <h3 style="margin-left: 10px;">
+            Hi, <%=user.name%>
+        </h3>
+        <div>
+
+            <button><a href="/users/logout/<%=token%>">Logout <i class="fa-solid fa-right-from-bracket"></i></a> </button>
+
+        </div>
+    </div>
+
+    <%if(abc.length ===0){%>
+        
+
+
+        <%for(let i=0;i<items.length;i++){%>
+
+
+
+
+            <form action="/cart/<%=token%>" method="post">
+                <div class="card">
+                    <div>
+                        Product Name:<%=items[i].name%>
+                    </div>
+
+                    <div>
+                        Category:<%=items[i].category%>
+                    </div>
+                    <div>
+                        Price:<%=items[i].price%>
+                    </div>
+                    <div>
+                        Description:<%=items[i].description%>
+                    </div>
+                       <input class="demoInput<%=i%>" type=number name="num" min=0 max=5 value=0>
+
+
+                                        <input type="hidden" name="id" value="<%=items[i]._id%>">
+                                        <div style="margin: 8px;">
+                                            <input type="submit" value='Add to Cart'>
+                                        </div>
+
+
+                </div>
+
+            </form>
+            <%}%>
+
+                
+
+
+  
+  
+        <%}else{%>
+            <%var abcd=abc[0].items%>
+    <div class="flex">
+
+
+        <%for(let i=0;i<items.length;i++){%>
+               <%var state=0%>
+
+
+
+
+            <form action="/cart/<%=token%>" method="post">
+                <div class="card">
+                    <div>
+                        Product Name:<%=items[i].name%>
+                    </div>
+
+                    <div>
+                        Category:<%=items[i].category%>
+                    </div>
+                    <div>
+                        Price:<%=items[i].price%>
+                    </div>
+                    <div>
+                        Description:<%=items[i].description%>
+                    </div>
+
+                    <%for(let j=0;j<abcd.length;j++){%>
+                        <%if(abcd[j].itemId.toString()===items[i]._id.toString()){%>
+
+
+                            <input class="demoInput<%=i%>" type=number name="num" min=0 max=5 value=<%=abcd[j].quantity%>
+                            />
+                            <%state=1%>
+                            <%break%>
+                           <%}%>  
+                       
+                    <%}%>
+                     <%if(state==0){%>
+                          <input class="demoInput<%=i%>" type=number name="num" min=0 max=5 value=0>
+                            
+                         <%}%>  
+
+                                        <input type="hidden" name="id" value="<%=items[i]._id%>">
+                                        <div style="margin: 8px;">
+                                            <input type="submit" value="Add to Cart">
+                                        </div>
+
+
+                </div>
+
+            </form>
+            <%}%>
+             <%}%>
+
+                
+
+
+    </div>
+    <div style="display: flex;flex-direction: row;justify-content: space-between;">
+        <div style="margin-left: 10px;">
+        <button><a href="/home/<%=token%>">Back to Home <i class="fa-sharp fa-solid fa-house-user"></i></a></button>
+    </div>
+   
+    <div>
+         <button><a href="/order/<%=token%>">Go to Orders <i class="fa-solid fa-truck-fast"></i></a></button>
+    </div>
+   </div>
+    <div class="footer">
+       <a href="/cart/<%=token%>"> <button>
+        <%=cartquantity%> Items Left<i class="fa-solid fa-cart-shopping">
+          
+        </button></i>
+    </a>
+    </div>
+
+   
+   
+
+</body>
+
+</html>
